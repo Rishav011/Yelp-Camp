@@ -1,0 +1,59 @@
+<%- include ("../partials/header") %>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <p class="lead">Yelp Camp</p>
+            <div class="list-group">
+                <li class="list-group-item active">Info 1</li>
+                <li class="list-group-item">Info 2</li>
+                <li class="list-group-item">Info 3</li>
+            </div>
+        </div>
+        <div  class="col-md-9">
+            <div class="card" style="width: 43rem;">
+                     <img class="card-img-top" src="<%= camps.image %>" alt="Card image cap">
+                     <div class="card-body">
+                            <h5 class="card-title text-primary"><%= camps.name %> <span class="float-right text-dark">$9.00/night</span></h5>
+                            <p class="card-text"><%= camps.description %></p>
+                            <em>Submitted by <%= camps.author.username %></em>
+                            <br>
+                            <% if(currentUser && camps.author.id.equals(currentUser.id)) {%>
+                                <div class="py-2">
+                            <a href="/allcamps/<%= camps._id %>/edit" class="btn btn-warning">Edit!</a>
+                            <form style="display: inline;" action="/allcamps/<%= camps._id %>?_method=DELETE" method="POST">
+                            <button class="btn btn-danger">Delete!</button> </form></div>
+                            <% } %>
+                     </div>
+              </div>
+              <br>
+              <div class="col-md-10 wellcard card-body bg-light border">
+                    <a href="/allcamps/<%= camps._id %>/comments/new" class="btn btn-outline-success btn-sm float-right">Add New Comment!</a>
+                    <br>
+                    <br>
+                    <div >
+                              <% camps.comments.forEach(function(comments){ %>
+                                
+                            <strong><%= comments.author.username %> </strong> 
+                            <br>
+                             <span class="float-right">10 days ago</span>
+                             <%= comments.text %>
+                            <div class="py-2">
+                                <% if(currentUser && comments.author.id.equals(currentUser.id)) {%>
+                             <a class="btn btn-warning btn-sm" href="/allcamps/<%= camps._id %>/comments/<%=comments._id%>/edit">Edit</a>
+                             <form style="display: inline;" action="/allcamps/<%= camps._id %>/comments/<%=comments._id%>?_method=DELETE" method="POST">
+                               <button class="btn btn-danger btn-sm">Delete</button>
+                           </form>
+                           <% } %>
+                        </div>
+                           
+                              <% }) %>
+                    </div>
+              </div>
+              
+        </div>
+    </div>
+</div>
+
+
+
+<%- include ("../partials/footer") %>
