@@ -1,6 +1,5 @@
 var express     =   require("express"),
 app             =   express(),
-request         =   require("request"),
 bodyParser      =   require("body-parser"),
 mongoose        =   require("mongoose"),
 passport        =   require("passport"),
@@ -29,8 +28,6 @@ app.use(require("express-session")({
             saveUninitialized:false
         })
 );
-
-
 
 app.use(passport.initialize());
 app.use(passport.session());

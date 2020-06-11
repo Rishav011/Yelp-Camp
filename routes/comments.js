@@ -11,7 +11,7 @@ router.get("/new",middleware.isLoggedIn,function(req,res){
         } else {
             res.render("comments/new",{camps:campground});
         }
-    })
+    });
     
 });
 

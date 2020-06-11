@@ -23,7 +23,7 @@ router.post("/",middleware.isLoggedIn,(req,res) =>{
         username:req.user.username
     };
     var newCamps = {name : name, image : image, description : description,author:author};
-    Campground.create(newCamps,function(err,newCreate){
+    Campground.create(newCamps,function(err){
     if(err){
         console.log(err);
     } else {
@@ -43,7 +43,7 @@ router.get("/:id",(req,res) =>{
 
 Campground.findById(req.params.id).populate("comments").exec(function(err,foundCampground){
     if(err){
-        console.log("Error");
+        console.log(err);
     } else {
         res.render("allcamps/show.ejs",{camps:foundCampground});
     }
